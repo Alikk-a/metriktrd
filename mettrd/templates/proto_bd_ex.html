@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Биржи {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Биржи</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Биржи</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <script src="{% static 'js/plotly-latest.min.js' %}"></script>
+    <script src="{% static 'js/ajax/d3.min.js' %}"></script>
+    <script src="{% static 'js/changeview.js' %}"></script>
+
+    <section class="section dashboard">
+        <div class="row">
+
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card revenue-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Капитализация крипторынка</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>$1.84T</h6>
+                                            <span class="text-success small pt-1 fw-bold">-2.16%</span> <span
+                                                class="text-muted small pt-2 ps-1">снижение</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End 1 миниатюра -->
+                        <!-- Доминация -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Доминация BTC</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>40.85%</h6>
+                                            <span class="text-success small pt-1 fw-bold" style="color: red;" >+0,21%</span>
+                                            <span class="text-muted small pt-2 ps-1">снижение</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End 2 миниатюра -->
+                        <!-- Страх -->
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Индекс страха - жадности</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <img src="../media/event_images/fear_greed.png" style="width: 61%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End 3 миниатюра -->
+                    <!-- центр основные блоки -->
+                        <div id="voton_c"></div>
+                        {% for pag in pages_c.all %}
+                            <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                            <script>
+                                new GraphModule(
+                                    "{{ pag.metric.name }}",
+                                    "{{ pag.metric.subname }}",
+                                    "{{ pag.metric.file_name }}",
+                                    "{{ pag.metric.ID_out }}",
+                                    {{ pag.metric.variable }},
+                                    "{{ pag.metric.rangestart }}",
+                                    Boolean({{ pag.metric.slider }}),
+                                    "{{ pag.metric.laycolor }}",
+                                    "{{ pag.metric.barmode }}",
+                                    "{{ pag.metric.barline }}",
+                                    "#voton_c"
+                                ).render();
+                            </script>
+                        {% endfor %}
+                    </div>
+            </div>
+            <div class="col-lg-4">
+                <div id="voton_r"></div>
+                {% for pag in pages_r.all %}
+                    <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                    <script>
+                        new GraphModule(
+                            "{{ pag.metric.name }}",
+                            "{{ pag.metric.subname }}",
+                            "{{ pag.metric.file_name }}",
+                            "{{ pag.metric.ID_out }}",
+                            {{ pag.metric.variable }},
+                            "{{ pag.metric.rangestart }}",
+                            Boolean({{ pag.metric.slider }}),
+                            "{{ pag.metric.laycolor }}",
+                            "{{ pag.metric.barmode }}",
+                            "{{ pag.metric.barline }}",
+                            "#voton_r"
+                        ).render();
+                    </script>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+{% endblock %}

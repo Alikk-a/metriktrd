@@ -1,0 +1,209 @@
+{% extends 'base_r.html' %}
+{% load static %}
+{% load tz %}
+
+{% block title %} Крупные транзации {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Крупные транзации real-time</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Крупные транзации</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-11">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Транзакции от 500k по состоянию на - {% now "j F Y H:i" %}</h5>
+                        <!-- Table with stripped rows -->
+                        <table id="filter-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width:15px" scope="col">#</th>
+                                <th style="width:210px" scope="col">Время</th>
+                                <th style="width:30px" scope="col">Монета</th>
+                                <th scope="col"><div align="center">кол-во</div></th>
+                                <th scope="col"><div align="center">сумма USD</div></th>
+                                <th style="width:210px" scope="col"><div align="center">ТИП</div></th>
+                                <th style="width:85px" scope="col"><div align="center">From</div></th>
+                                <th style="width:85px" scope="col"><div align="center">To</div></th>
+                                <th scope="col"><div align="center"></div></th>
+                                <th scope="col"><div align="center">транзакций</div></th>
+                                <th scope="col">блокчейн</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class='table-filters'>
+                                <td></td>
+                                <td>фильтры :</td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="ввод">
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="">
+                                </td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% for trz in tranzs.all %}
+                            <tr  class='table-data'>
+                                <td align="center">{{ forloop.counter }}</td>
+<!--                                <td>-->
+<!--                                    <script>-->
+<!--                                       document.write(timeConverter({{ trz.time_trz }}));-->
+<!--                                    </script>-->
+                                {% timezone "Europe/Kiev" %}
+                                <td>
+                                    {% ifchanged %}<b>{{ trz.date_trz|date:"d-m-y" }}</b><br>{% endifchanged %}
+                                    {{ trz.date_trz|date:"H:i:s" }}
+                                    </td>
+                                {% endtimezone %}
+<!--                                            </td>-->
+                                <td  align="center">{{ trz.symbol }}</td>
+                                <td id="amountInt{{trz}}" align="right">
+                                    {% if trz.amountusdRound > 50_000_000 %}
+                                        <b>{{ trz.amountRound|floatformat:"0g" }}</b>
+                                    {% else %}
+                                        {{ trz.amountRound|floatformat:"0g" }}
+                                    {% endif %}
+<!--                                    <script>-->
+<!--                                        if (Math.round({{ trz.amount_usd }}) > 50 000 000) {-->
+<!--                                            document.write("<b>" + Math.round({{ trz.amount }}) + "</b>");-->
+<!--                                        } else {-->
+<!--                                            document.write(Math.round({{ trz.amount }}));-->
+<!--                                        }-->
+<!--                                    </script>-->
+                                </td>
+                                <td  id="amountusdInt{{trz}}" align="right">
+                                    {% if trz.amountusdRound > 50_000_000 %}
+                                        <b><i>{{ trz.amountusdRound|floatformat:"0g" }}</i></b>
+                                    {% else %}
+                                        <i>{{ trz.amountusdRound|floatformat:"0g" }}</i>
+                                    {% endif %}
+                                </td>
+                                <td  align="center">
+                                    <script>
+                                        function typeTrans(f_type, t_type, f_own, t_own){
+                                        let tdid = document.getElementById('amountInt{{trz}}');
+                                        let tdusdid = document.getElementById('amountusdInt{{trz}}');
+                                            if (f_type == 'unknown' && t_type == 'unknown') {
+                                                type_type = 'outside exchanges';
+                                                tdid.style.fontSize = '12px';
+                                                tdusdid.style.fontSize = '12px';
+                                            }
+                                            else if (f_type == 'unknown' && t_type == 'exchange') {
+                                                type_type = 'to ' + t_own;
+                                                tdid.style.color = '#ad2c38';
+                                                tdusdid.style.color = '#ad2c38';
+                                            }
+                                            else if (f_type == 'other' && t_type == 'exchange') {
+                                                type_type = 'to ' + t_own;
+                                                tdid.style.color = '#ad2c38';
+                                                tdusdid.style.color = '#ad2c38';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'unknown') {
+                                                type_type = 'from ' + f_own;
+                                                tdid.style.color = '#6610f2';
+                                                tdusdid.style.color = '#6610f2';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'other') {
+                                                type_type = 'from ' + f_own;
+                                                tdid.style.color = '#198754';
+                                                tdusdid.style.color = '#198754';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'exchange' && f_own != t_own) {
+                                                type_type = f_own + ' -> ' + t_own;
+                                                tdid.style.color = '#6610f2';
+                                                tdusdid.style.color = '#6610f2';
+                                            }
+                                            else if (f_own == t_own) {
+                                                type_type = 'inside ' + t_own;
+                                            }
+                                            else {
+                                                type_type = 'особая';
+                                            };
+                                            return type_type;
+                                        }
+                                        document.write(typeTrans('{{ trz.from_owner_type }}', '{{ trz.to_owner_type }}', '{{ trz.from_owner }}', '{{ trz.to_owner }}'));
+                                    </script>
+                                </td>
+                                <td align="center">{{ trz.from_owner }}</td>
+                                <td align="center">{{ trz.to_owner }}</td>
+                                {% if trz.blockchain == 'bitcoin' %}
+                                    <td align="center"><a target="_blank" href="https://bitinfocharts.com/ru/bitcoin/tx/{{ trz.hash }}">детали</a></td>
+                                {% elif trz.blockchain == 'ethereum' %}
+                                    <td align="center"><a target="_blank" href="https://etherscan.io/tx/0x{{ trz.hash }}">детали</a></td>
+                                {% elif trz.blockchain == 'ripple' %}
+                                    <td align="center"><a target="_blank" href="https://bithomp.com/explorer/{{ trz.hash }}">детали</a>
+                                {% elif trz.blockchain == 'tron' %}
+                                    <td align="center"><a target="_blank" href="https://tronscan.org/#/transaction/{{ trz.hash }}">детали</a></td>
+                                {% else %}
+                                    <td align="center">---</td>
+                                {% endif %}
+                                <td align="center">{{ trz.transaction_count }}</td>
+                                <td>{{ trz.blockchain }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td>Пусто на текущий момент.</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% block content_bottom %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    $('.table-filters input').on('input', function () {
+        filterTable($(this).parents('table'));
+    });
+
+    function filterTable($table) {
+        var $filters = $table.find('.table-filters td');
+        var $rows = $table.find('.table-data');
+        $rows.each(function (rowIndex) {
+            var valid = true;
+            $(this).find('td').each(function (colIndex) {
+                if ($filters.eq(colIndex).find('input').val()) {
+                    if ($(this).html().toLowerCase().indexOf(
+                    $filters.eq(colIndex).find('input').val().toLowerCase()) == -1) {
+                        valid = valid && false;
+                    }
+                }
+            });
+            if (valid === true) {
+                $(this).css('display', '');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
+    }
+    </script>
+</main><!-- End #main -->
+{% endblock %}

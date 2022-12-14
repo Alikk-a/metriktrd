@@ -1,0 +1,156 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} CryptoAnalytics {% endblock %}
+
+<!-- ======= START content page  ====== -->
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+{% endblock %}
+{% block content_bottom %}
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Капитализация крипторынка</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$955B</h6>
+                                        <span class="text-success small pt-1 fw-bold">+2.85%</span> <span
+                                            class="text-muted small pt-2 ps-1">рост</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End 1 миниатюра -->
+                    <!-- Страх -->
+                    <div class="col-xxl-4 col-xl-12">
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Индекс страха - жадности</h5>
+                                <div class="d-flex align-items-center">
+<!--                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">-->
+<!--                                            <i class="bi-currency-dollar"></i>-->
+<!--                                        </div>-->
+                                    <div class="ps-3">
+                                        <img src="../media/event_images/fear_greed.png" style="height: 130px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End 2 миниатюра -->
+                    <!-- Доминация -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Доли BTC и ETH в рынке</h5>
+                                <div class="d-flex align-items-center">
+<!--                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">-->
+<!--                                            <i class="bi-currency-dollar"></i>-->
+<!--                                        </div>-->
+                                    <div class="ps-3" id='myDiv' >
+                                    <!--скрипт долей в рынке моент круговая диаграмма -->
+                                    <script>
+                                    const btc = 405000,
+                                          eth = 147000,
+                                          other = 955000 - btc - eth
+                                    var data = [{
+                                        values: [btc, eth, other],
+                                        labels: ['BTC', 'ETH', 'остальные'],
+                                        name: 'Доля монеты',
+                                        hoverinfo: 'label+percent',
+                                        hole: .3,
+                                        type: 'pie'
+                                    }];
+                                    var layout = {
+                                        annotations: [
+                                            {
+                                                font: { size: 12 },
+                                                showarrow: false,
+                                                text: 'Доля',
+                                                x: 0.5,
+                                                y: 0.5
+                                            }
+                                        ],
+                                        height: 130,
+                                        width: 230,
+                                        showlegend: true,
+                                        margin: {"t": 0, "b": 7, "l": 0, "r": 0},
+                                    };
+                                    Plotly.newPlot('myDiv', data, layout);
+                                </script>
+<!--                                            <h6>41.24%</h6>-->
+<!--                                            <span class="text-success small pt-1 fw-bold" style="color: red;" >+0,32%</span>-->
+<!--                                            <span class="text-muted small pt-2 ps-1">рост</span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End 3 миниатюра -->
+                    <!-- центр основные блоки -->
+                    <div id="voton_c"></div>
+                    {% for pag in pages_c.all %}
+                        <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                        <script>
+                            new GraphModule(
+                                "{{ pag.metric.name }}",
+                                "{{ pag.metric.subname }}",
+                                "{{ pag.metric.file_name }}",
+                                "{{ pag.metric.ID_out }}",
+                                {{ pag.metric.variable }},
+                                "{{ pag.metric.rangestart }}",
+                                Boolean({{ pag.metric.slider }}),
+                                "{{ pag.metric.laycolor }}",
+                                "{{ pag.metric.barmode }}",
+                                "{{ pag.metric.barline }}",
+                                "{{ pag.coment }}",
+                                "#voton_c"
+                            ).render();
+                        </script>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div id="voton_r"></div>
+                {% for pag in pages_r.all %}
+                    <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                    <script>
+                        new GraphModule(
+                            "{{ pag.metric.name }}",
+                            "{{ pag.metric.subname }}",
+                            "{{ pag.metric.file_name }}",
+                            "{{ pag.metric.ID_out }}",
+                            {{ pag.metric.variable }},
+                            "{{ pag.metric.rangestart }}",
+                            Boolean({{ pag.metric.slider }}),
+                            "{{ pag.metric.laycolor }}",
+                            "{{ pag.metric.barmode }}",
+                            "{{ pag.metric.barline }}",
+                            "{{ pag.coment }}",
+                            "#voton_r"
+                        ).render();
+                    </script>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<!-- ======= END content page  ====== -->
+{% endblock %}

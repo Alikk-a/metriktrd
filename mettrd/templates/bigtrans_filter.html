@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tz %}
+
+{% block title %} Крупные транзации {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchbuilder/1.3.4/css/searchBuilder.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css">
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchbuilder/1.3.4/js/dataTables.searchBuilder.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+        $('#filter-table').DataTable( {
+            deferRender:    true,
+            responsive: true
+            } );
+        } );
+    </script>
+
+    <div class="pagetitle">
+        <h1>Крупные транзации real-time</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Крупные транзации</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    {% timezone "Europe/Kiev" %}
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-11">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h5 class="card-title">Транзакции от 500k по состоянию на - {% now "j F Y H:i" %}</h5>
+                        <!-- Table with stripped rows -->
+                        <table id="filter-table" class="display nowrap">
+                            <thead>
+                            <tr>
+                                <th style="width:15px" scope="col">#</th>
+                                <th style="width:210px" scope="col">Время</th>
+                                <th style="width:30px" scope="col">Монета</th>
+                                <th scope="col"><div align="center">кол-во</div></th>
+                                <th scope="col"><div align="center">сумма USD</div></th>
+                                <th style="width:210px" scope="col"><div align="center">ТИП</div></th>
+                                <th style="width:85px" scope="col"><div align="center">From</div></th>
+                                <th style="width:85px" scope="col"><div align="center">To</div></th>
+                                <th scope="col"><div align="center"></div></th>
+                                <th scope="col"><div align="center">транзакций</div></th>
+                                <th scope="col">блокчейн</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for trz in tranzs.all %}
+                            <tr  class='table-data'>
+                                <td align="center">{{ forloop.counter }}</td>
+<!--                                <td>-->
+<!--                                    <script>-->
+<!--                                       document.write(timeConverter({{ trz.time_trz }}));-->
+<!--                                    </script>-->
+                                <td>
+                                    {% ifchanged %}<b>{{ trz.date_trz|date:"d-m-y" }}</b><br>{% endifchanged %}
+                                    {{ trz.date_trz|date:"H:i:s" }}
+                                    </td>
+<!--                                            </td>-->
+                                <td  align="center">{{ trz.symbol }}</td>
+                                <td id="amountInt{{trz}}" align="right">
+                                    {% if trz.amountusdRound > 50_000_000 %}
+                                        <b>{{ trz.amountRound|floatformat:"0g" }}</b>
+                                    {% else %}
+                                        {{ trz.amountRound|floatformat:"0g" }}
+                                    {% endif %}
+<!--                                    <script>-->
+<!--                                        if (Math.round({{ trz.amount_usd }}) > 50 000 000) {-->
+<!--                                            document.write("<b>" + Math.round({{ trz.amount }}) + "</b>");-->
+<!--                                        } else {-->
+<!--                                            document.write(Math.round({{ trz.amount }}));-->
+<!--                                        }-->
+<!--                                    </script>-->
+                                </td>
+                                <td  id="amountusdInt{{trz}}" align="right">
+                                    {% if trz.amountusdRound > 50_000_000 %}
+                                        <b><i>{{ trz.amountusdRound|floatformat:"0g" }}</i></b>
+                                    {% else %}
+                                        <i>{{ trz.amountusdRound|floatformat:"0g" }}</i>
+                                    {% endif %}
+                                </td>
+                                <td  align="center">
+                                    <script>
+                                        function typeTrans(f_type, t_type, f_own, t_own){
+                                        let tdid = document.getElementById('amountInt{{trz}}');
+                                        let tdusdid = document.getElementById('amountusdInt{{trz}}');
+                                            if (f_type == 'unknown' && t_type == 'unknown') {
+                                                type_type = 'outside exchanges';
+                                                tdid.style.fontSize = '12px';
+                                                tdusdid.style.fontSize = '12px';
+                                            }
+                                            else if (f_type == 'unknown' && t_type == 'exchange') {
+                                                type_type = 'to ' + t_own;
+                                                tdid.style.color = '#ad2c38';
+                                                tdusdid.style.color = '#ad2c38';
+                                            }
+                                            else if (f_type == 'other' && t_type == 'exchange') {
+                                                type_type = 'to ' + t_own;
+                                                tdid.style.color = '#ad2c38';
+                                                tdusdid.style.color = '#ad2c38';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'unknown') {
+                                                type_type = 'from ' + f_own;
+                                                tdid.style.color = '#6610f2';
+                                                tdusdid.style.color = '#6610f2';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'other') {
+                                                type_type = 'from ' + f_own;
+                                                tdid.style.color = '#198754';
+                                                tdusdid.style.color = '#198754';
+                                            }
+                                            else if (f_type == 'exchange' && t_type == 'exchange' && f_own != t_own) {
+                                                type_type = f_own + ' -> ' + t_own;
+                                                tdid.style.color = '#6610f2';
+                                                tdusdid.style.color = '#6610f2';
+                                            }
+                                            else if (f_own == t_own) {
+                                                type_type = 'inside ' + t_own;
+                                            }
+                                            else {
+                                                type_type = 'особая';
+                                            };
+                                            return type_type;
+                                        }
+                                        document.write(typeTrans('{{ trz.from_owner_type }}', '{{ trz.to_owner_type }}', '{{ trz.from_owner }}', '{{ trz.to_owner }}'));
+                                    </script>
+                                </td>
+                                <td align="center">{{ trz.from_owner }}</td>
+                                <td align="center">{{ trz.to_owner }}</td>
+                                <td align="center"><a href="https://whale-alert.io/transaction/{{ trz.blockchain }}/{{ trz.hash }}" target="_blank">детали</a></td>
+                                <td align="center">{{ trz.transaction_count }}</td>
+                                <td>{{ trz.blockchain }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td>Пусто на ткущеий момент.</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endtimezone %}
+
+    {% endblock %}
+    {% block content_bottom %}
+
+
+</main><!-- End #main -->
+{% endblock %}

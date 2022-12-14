@@ -1,0 +1,335 @@
+
+/** {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #eaf0f2 none repeat scroll 0 0;
+    color: #666;
+    font: 15px/1.5 Arial,Helvetica,sans-serif;
+    word-wrap: break-word;
+}
+
+a {
+    color: #5587c4;
+    text-decoration: none;
+}
+
+.clear{
+	display:block;
+	width:100%;
+	height:0px;
+	clear:both;
+	overflow:hidden;
+	visibility: hidden;
+	font:400 0px/0px Arial;
+}
+
+----------------------------
+/*начало демо*/
+
+/*кнопка обратной связи*/
+
+.email-bt {
+	background:#6b402e;
+	border:1px solid #8f4f3393;
+	border-radius:50%;
+	box-shadow:0 8px 10px rgba(249,92,24,0.3);
+	cursor:pointer;
+	height:68px;
+	text-align:center;
+	width:150px;
+	position: fixed;
+	left: 29%;
+	top: 1%;
+	z-index:999;
+	transition:.3s;
+	-webkit-animation:email-an linear 1s infinite;
+	animation:email-an linear 1s infinite;
+}
+
+.email-bt .text-call{
+	height:68px;
+	width:68px;	
+	border-radius:50%;
+	position:relative;
+	overflow:hidden;
+}
+
+.email-bt .text-call span {
+    text-align: center;
+    color:#F95C18;
+    opacity: 0;
+    font-size: 0;
+	position:absolute;
+	right: 4px;
+	top: 22px;
+    line-height: 14px;
+	font-weight: 600;
+    text-transform: uppercase;
+    transition: opacity .3s linear;
+    font-family: 'montserrat', Arial, Helvetica, sans-serif;
+}
+
+.email-bt .text-call:hover span {
+    opacity: 1;
+	font-size: 11px;
+}
+.email-bt:hover i {
+    display:none;
+}
+
+.email-bt:hover {
+	z-index:1;
+	background:#fff;
+	transition:.3s;
+}
+.email-bt:hover i {
+	color:#38a3fd;
+	font-size:40px;
+	transition:.3s;
+}
+.email-bt i {
+	color:#fff;
+	font-size:29px;
+	transition:.3s;
+	line-height: 66px;
+}
+
+.email-bt i  {
+	-webkit-animation: opsimple 3s infinite;
+	animation: opsimple 3s infinite;
+}
+
+@-webkit-keyframes email-an {
+	0% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 0 rgba(249,92,24,0.2),0 0 0 0 rgba(249,92,24,0.2)
+}
+40% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 15px rgba(249,92,24,0.2),0 0 0 0 rgba(249,92,24,0.2)
+}
+80% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 30px rgba(249,92,24,0),0 0 0 26.7px rgba(249,92,24,0.067)
+}
+100% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 30px rgba(249,92,24,0),0 0 0 40px rgba(249,92,24,0.0)
+}
+}@keyframes email-an {
+	0% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 0 rgba(249,92,24,0.2),0 0 0 0 rgba(249,92,24,0.2)
+}
+40% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 15px rgba(249,92,24,0.2),0 0 0 0 rgba(249,92,24,0.2)
+}
+80% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 30px rgba(249,92,24,0),0 0 0 26.7px rgba(249,92,24,0.067)
+}
+100% {
+	box-shadow:0 8px 10px rgba(249,92,24,0.3),0 0 0 30px rgba(249,92,24,0),0 0 0 40px rgba(249,92,24,0.0)
+}
+}
+
+@keyframes opsimple {
+0% {
+    opacity: 0;
+}
+40% {
+    opacity: 1;
+}
+
+80% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+
+@-webkit-keyframes opsimple {
+0% {
+    opacity: 0;
+}
+40% {
+    opacity: 1;
+}
+
+80% {
+    opacity: 1;
+}
+100% {
+    opacity: 0;
+}
+}
+
+/* модальное окно */
+
+form {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+input, textarea {
+	box-sizing: border-box;
+}
+
+textarea{
+	background: rgba(0, 0, 0, 0.1); 
+    width: 100%;
+    height: 110px;
+    border: 1px solid rgba(255,255,255,.6);
+    border-radius: 2px; 
+    display:block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:15px;
+    color:#444;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+input {
+	background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 4px;
+    display:block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:15px;
+    color:#444;
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:20px;
+}
+
+input[type=submit] {
+    cursor:pointer;
+}
+
+::-webkit-input-placeholder {
+	  color: #999;
+}
+
+:-moz-placeholder{ 
+    color: #999; 
+}
+
+::-moz-placeholder {
+    color: #999;
+}
+
+:-ms-input-placeholder {  
+	  color: #999; 
+}
+
+input:focus, textarea:focus { 
+	  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+	margin:0 auto;
+    background: #F95C18;
+    padding: 10.5px 21px;
+    border-radius: 4px;
+    color: #fff;
+	font-size:18px;
+	transition:all 0.3s;
+}
+
+.btn:hover {
+    background: #E34602;
+ }
+
+
+/*конец демо3*/
+
+#wrapper {
+    margin: 0 auto;
+	width: 1000px;
+}
+
+/*шапка хеадер
+#header {
+	background: url(img/bg.jpg);
+    height: 150px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.con_header{
+    margin: 0 auto;
+    width: 1000px;
+	padding-top: 30px;
+}
+
+.con_header h1 {
+    color: #fff;
+     font: 25px arial;
+    padding-top: 22px;
+    text-align: center;
+    text-transform: uppercase;
+}
+*/
+/*контент центральный блок*/
+.content{
+    margin: 30px 0;
+	float:left;
+}
+
+.post{
+	background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin: 0px 0 15px;
+    padding: 25px;
+	width:630px;
+}
+
+.title {
+    color: #5587c4;
+    display: table;
+    font-size: 22px;
+    margin: 0 0 15px;
+	cursor:pointer;
+}
+
+/* Sidebar */
+
+#sidebar {
+    float: right;
+    margin: 30px 0 20px 10px;
+    padding: 0px 10px 20px;
+    width: 285px;
+}
+
+#sidebar ul {
+	margin: 10px 0 0;
+	padding: 0;
+	list-style: none;
+	line-height: normal;
+}
+
+#sidebar ul li{
+	padding: 5px 0 5px 10px;
+	border-bottom: 1px solid #dedede;
+}
+
+#sidebar h2 {
+	color: #222;
+    font-family: arial;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    margin: 0;
+	display:table;
+    text-transform: uppercase;
+}
+
+#sidebar a {
+    color: #5587c4;
+    text-decoration: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+}
+-----------------------------------------------------*/

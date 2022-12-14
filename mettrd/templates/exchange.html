@@ -1,0 +1,25 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} Биржи {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Динамика по биржам</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">exchange</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <script src="{% static 'js/plotly-latest.min.js' %}"></script>
+    <script src="{% static 'js/ajax/d3.min.js' %}"></script>
+    <script src="{% static 'js/changeview.js' %}"></script>
+{% endblock %}
+{% block content_bottom %}
+</main><!-- End #main -->
+{% endblock %}

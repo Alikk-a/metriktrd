@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}  таки пост {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Пост</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'proto' %}">Events</a></li>
+                <li class="breadcrumb-item active">{{ post.title }}</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto my-2 text-center">
+                <div class="py-2">
+                    <h2>{{ post.title }}</h2>
+                    <br>
+                    <img src="{{ post.image.url }}" width=500px class="img-fluid">
+                    <br>
+                    <p>{{ post.get_summary }}</p>
+                    <p>{{ post.date }}</p>
+                    <br>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+{% endblock %}

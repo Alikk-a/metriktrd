@@ -1,0 +1,67 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %}
+        Средние - {{ symb }}
+{% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Статистика по транзакциям - {{ symb }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Статистика</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Типы транзакций суммарно и средние по дням</h5>
+
+            <!-- Table with stripped rows -->
+            <table class="table table-bordered border-primary">
+                <thead>
+                <tr>
+
+                    <th scope="col">Время</th>
+                    <th scope="col">Монета</th>
+                    <th scope="col">сумма монет</th>
+                    <th scope="col">среднее</th>
+                    <th scope="col">кол-во Т</th>
+                    <th scope="col">сумма USD</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">F тип</th>
+                    <th scope="col">T тип</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trz in tranzs.all %}
+                    {% cycle 'background-color:#f5f5f5' 'background-color:#ffffff' as rowcolors silent %}
+                    <tr>
+
+                        <td style="{{ rowcolors }}">{{ trz.intval }}</td>
+                        <td style="{{ rowcolors }}">{{ trz.symbol }}</td>
+                        <td style="{{ rowcolors }}" id="amountInt" align="right">{{ trz.amount__sum|floatformat:"0g" }}</td>
+                        <td  style="{{ rowcolors }}" id="amountAvg" align="right">{{ trz.amount__avg|floatformat:"0g" }}</td>
+                        <td  style="{{ rowcolors }}" align="center">{{ trz.amount__count }}</td>
+                        <td  style="{{ rowcolors }}" id="amountIntusd" align="right">{{ trz.amount_usd__sum|floatformat:"0g" }}</td>
+                        <td style="{{ rowcolors }}" align="center">{{ trz.from_owner }}</td>
+                        <td style="{{ rowcolors }}" align="center">{{ trz.to_owner }}</td>
+                        <td style="{{ rowcolors }}">{{ trz.from_owner_type }}</td>
+                        <td style="{{ rowcolors }}">{{ trz.to_owner_type }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+        </div>
+    </div>
+{% endblock %}
+{% block content_bottom %}
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Активность {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Активность рынка</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Активность</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <script src="{% static 'js/plotly-latest.min.js' %}"></script>
+    <script src="{% static 'js/ajax/d3.min.js' %}"></script>
+    <script src="{% static 'js/changeview.js' %}"></script>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-11">
+                <div id="voton"></div>
+                {% for pag in pages.all %}
+                    <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                    <script>
+                        new GraphModule(
+                            "{{ pag.metric.name }}",
+                            "{{ pag.metric.subname }}",
+                            "{{ pag.metric.file_name }}",
+                            "{{ pag.metric.ID_out }}",
+                            {{ pag.metric.variable }},
+                            "{{ pag.metric.rangestart }}",
+                            Boolean({{ pag.metric.slider }}),
+                            "{{ pag.metric.laycolor }}",
+                            "{{ pag.metric.barmode }}",
+                            "{{ pag.metric.barline }}",
+                            "#voton"
+                        ).render();
+                    </script>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+{% endblock %}

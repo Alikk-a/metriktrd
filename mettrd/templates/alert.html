@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Алерт {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>АЛЕРТ</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Алерт</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Алерт</h5>
+
+            <!-- Table with stripped rows -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Время</th>
+                    <th scope="col">Монета</th>
+                    <th scope="col">кол-во</th>
+                    <th scope="col">сумма USD</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Тип движения</th>
+                    <th scope="col">count</th>
+                    <th scope="col">F тип</th>
+                    <th scope="col">T тип</th>
+                    <th scope="col">блок</th>
+                    <th scope="col">From adr</th>
+                    <th scope="col">To adr</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trz in datatrz %}
+                <tr>
+                    <th scope="row">{{ trz.n }}</th>
+                    <td>{{ trz.id }}</td>
+                    <td>{{ trz.timeTrz }}</td>
+                    <td>{{ trz.symbol }}</td>
+                    <td align="right">{{ trz.amount_int }}</td>
+                    <td align="right">{{ trz.amount_usd_int }}</td>
+                    <td align="center">{{ trz.birFrom }}</td>
+                    <td align="center">{{ trz.birTo }}</td>
+                    <td align="center">{{ trz.transaction_type }}</td>
+                    <td  align="right">{{ trz.transaction_count }}</td>
+                    <td>{{ trz.from.owner_type }}</td>
+                    <td>{{ trz.to.owner_type }}</td>
+                    <td>{{ trz.blockchain }}</td>
+                    <td><span style="font-size: 10px">{{ trz.from.address }}</span></td>
+                    <td><span style="font-size: 10px">{{ trz.to.address }}</span></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block content_bottom %}
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-xxl-4 col-xl-12">
+                <div class="card info-card customers-card">
+                    <iframe width="100%" height="420" frameborder="1"
+                            src="https://embed.theblockcrypto.com/data/crypto-markets/prices/crypto-total-marketcap/embed"
+                            title="Капитализация крипторынка"></iframe>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-xl-12">
+                <div class="card info-card customers-card">
+                    <iframe src="https://whale-alert.io/transaction-map-embed.shtml" height="420" width="100%"
+                            style="border:0px #ffffff none;" scrolling="no" frameborder="1" marginheight="0px"
+                            marginwidth="0px" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+{% endblock %}

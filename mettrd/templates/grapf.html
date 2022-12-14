@@ -1,0 +1,62 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} Набор метрик {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Всячина</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">сборище</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="container-xl">
+
+        <div class="container-fluid">
+            <h3>Капитализация ТОП полезных монет</h3>
+            <div class="chart" id="plotly_graph_capt"></div>
+
+            <h3>Капитализация (по сути эмиссия) стейблов</h3>
+            <div class="chart" id="plotly_graph_caps"></div>
+
+            <h3>Объемы фьючерсов по BTC</h3>
+            <div class="chart" id="plotly_graph_btc"></div>
+
+            <h3>Объемы фьючерсов по ETH</h3>
+            <div class="chart" id="plotly_graph_eth"></div>
+
+            <h3>Просадка BTC и ETH - % от последнего ATH</h3>
+            <div class="chart" id="plotly_down"></div>
+
+        </div>
+        <div>
+            <h3 id="time"><span id="min"></span></h3>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <script src="../media/cap_tok.js"></script>
+    <script src="../media/cap_st.js"></script>
+    <script src="../media/vfutur_btc.js"></script>
+    <script src="../media/vfutur_eth.js"></script>
+    <script src="../media/down.js"></script>
+
+
+    <script>Plotly.plot('plotly_graph_capt', graphs_tok,{});</script>
+    <script>Plotly.plot('plotly_graph_caps', graphs_st,{});</script>
+    <script>Plotly.plot('plotly_graph_btc', graphs_btc,{});</script>
+    <script>Plotly.plot('plotly_graph_eth', graphs_eth,{});</script>
+    <script>Plotly.plot('plotly_down', down,{});</script>
+
+
+</main><!-- End #main -->
+{% endblock %}

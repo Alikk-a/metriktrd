@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} отладочная3 {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>отладочная стандартная через Цикл и файл - измерение времени</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">отладочная стандартная</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+{% endblock %}
+{% block content_bottom %}
+</main><!-- End #main -->
+{% endblock %}

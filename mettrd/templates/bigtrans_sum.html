@@ -1,0 +1,21 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} Крупные движения по биржам {% endblock %}
+
+{% block content %}
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Крупные движения по биржам</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item active">движение по биржам</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+{% endblock %}
+{% block content_bottom %}
+    </main><!-- End #main -->
+{% endblock %}

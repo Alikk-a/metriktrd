@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Постятина {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>постятина и иже с ней - тренировочный полигон, однако</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Посты</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+
+        <div class="row">
+
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Капитализация крипторынка</h5>
+                    </div>
+                </div>
+            </div><!-- End 1 миниатюра -->
+            <!-- Капа -->
+            <div class="col-xxl-4 col-xl-12">
+                <div class="card info-card customers-card">
+                    <iframe width="100%" height="420" frameborder="1" src="https://embed.theblockcrypto.com/data/crypto-markets/prices/crypto-total-marketcap/embed" title="Капитализация крипторынка"></iframe>
+                </div>
+            </div><!-- End 3 миниатюра -->
+            <!-- Доли-->
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Доли BTC, ETH и остальных</h5>
+                        <div class="d-flex align-items-center">
+                            <!--                                        <iframe src="https://cryptocurrencytracker.info/ru/widget/dominance-chart"-->
+                            <!--                                                style="width: 100%; overflow: hidden;scroll-behavior: unset;height: 210px;border: unset;">-->
+                            <!--                                        </iframe>-->
+                            <!--                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">-->
+                            <!--                                <i class="bi-currency-dollar"></i>-->
+                            <!--                            </div>-->
+                            <div class="ps-3" id='myDiv'>
+                                <!--                                <h6>41.24%</h6>-->
+                                <!--                                <span class="text-success small pt-1 fw-bold" style="color: red;" >+0,32%</span>-->
+                                <!--                                <span class="text-muted small pt-2 ps-1">рост</span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Доли -->
+
+            <div class="col-11">
+                <div class="card-body">
+                    <h5 class="card-title">Тренировочный</h5>
+                    <div class="chart" id="prob"></div>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">ПРАЙС</h5>
+                    <div class="chart" id="btc_price"></div>
+                </div>
+
+                <div class="container-fluid">
+                    <h3>Капа стейблятины</h3>
+                    <div class="chart" id="plotly_graph_st"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Polar Area Chart</h5>
+                        <!-- Polar Area Chart -->
+                        <!--              <div id="polarAreaChart"></div>-->
+                        <script>
+                    const btc1 = 748700,
+                          eth1 = 350541,
+                          other1 = 1810000 - btc1 - eth1
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#polarAreaChart"), {
+                        series: [btc1, eth1, other1],
+                        chart: {
+                          type: 'polarArea',
+                          height: 250,
+                          toolbar: {
+                            show: true
+                          }
+                        },
+                        stroke: {
+                          colors: ['#fff']
+                        },
+                        fill: {
+                          opacity: 0.8
+                        },
+                      labels: ['BTC', 'ETH', 'остальные'],
+                      }).render();
+                    });
+
+                        </script>
+                        <!-- End Polar Area Chart -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Radial Bar Chart</h5>
+                        <!-- Radial Bar Chart -->
+                        <div id="radialBarChart"></div>
+                        <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#radialBarChart"), {
+                        series: [41.1, 19.3, 1.5, 1.5, 1.4],
+                        chart: {
+                          height: 350,
+                          type: 'radialBar',
+                          toolbar: {
+                            show: true
+                          }
+                        },
+                        plotOptions: {
+                          radialBar: {
+                            dataLabels: {
+                              name: {
+                                fontSize: '22px',
+                              },
+                              value: {
+                                fontSize: '16px',
+                              },
+                              total: {
+                                show: true,
+                                label: 'Total',
+                                formatter: function(w) {
+                                  // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                                  return 1780000
+                                }
+                              }
+                            }
+                          }
+                        },
+                        labels: ['BTC', 'ETH', 'BNB', 'SOL', 'XRP'],
+                      }).render();
+                    });
+
+                        </script>
+                        <!-- End Radial Bar Chart -->
+                    </div>
+                </div>
+            </div>
+
+            <p id="min2"></p>
+
+            <p id="min">из переменной</p>
+
+            <p id="min3">**********</p>
+
+            <h4>{{ bi1 }}</h4>
+            <h4>{{ values }}</h4>
+
+        </div>
+        <div class="container py-5">
+            <div class="row mt-5">
+                <div class="col-10 mx-auto col-md-6 my-3">
+                    {% for post in posts.all %}
+                    <br>
+                    <img src="{{ post.image.url }}" width=210px>
+                    <br>
+                    <p>{{ post.get_summary }}</p>
+                    <p>{{ post.date }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-10 mx-auto col-md-6 my-3">
+                <img class="card-img-top" src="{% static 'images/lego.png' %}">
+                <h1 class="product_title">Кубики се</h1>
+                <h5 class="text-info font-italic mb-4">21 дохлый enot</h5>
+                <p class="product_desc">типа описанщина</p>
+            </div>
+        </div>
+        </div>
+        <hr>
+
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+        <script src="../media/prob.js"></script>
+        <script src="../media/btc_price.js"></script>
+        <!--скрипт долей в рынке монент круговая диаграмма -->
+        <script>
+        const btc = 748700,
+              eth = 350541,
+              other = 1810000 - btc - eth
+        var data = [{
+            values: [btc, eth, other],
+            labels: ['BTC', 'ETH', 'other'],
+            name: 'Доля монеты',
+            hoverinfo: 'label+percent',
+            hole: .3,
+            type: 'pie'
+        }];
+        var layout = {
+            annotations: [
+                {
+                    font: { size: 12 },
+                    showarrow: false,
+                    text: 'Доля',
+                    x: 0.5,
+                    y: 0.5
+                }
+            ],
+            height: 130,
+            width: 210,
+            showlegend: true,
+            margin: {"t": 0, "b": 7, "l": 0, "r": 0},
+        };
+        Plotly.newPlot('myDiv', data, layout);
+
+        </script>
+        <script>
+        prob.config = {displaylogo: false, modeBarButtonsToRemove: ['pan2d','select2d','lasso2d','zoomOut2d','zoomIn2d','zoom2d','toggleSpikelines']};
+        prob.layout.xaxis.rangeslider = {visible: true};
+        var dat = Date.parse('2020-10-01');
+        var rangeEnd = new Date();
+        prob.layout.xaxis.range = [dat, rangeEnd];
+        prob.layout.plot_bgcolor = '#f8f9fa';
+        Plotly.newPlot('prob', prob,{});
+        Plotly.newPlot('btc_price', btc_price,{});
+
+        document.getElementById("min2").innerHTML = prob;
+
+        console.log(prob);
+        </script>
+
+        <script>
+        var min = 'Ух ты ж, мух-блях...';
+        out_m = "{{ out }}";
+        document.getElementById("min3").innerHTML = out_m;
+        document.getElementById("min").innerHTML = min;
+        Plotly.newPlot('plotly_graph_st', out_m,{});
+        console.log(out_m);
+
+        </script>
+
+    </section>
+</main><!-- End #main -->
+{% endblock %}

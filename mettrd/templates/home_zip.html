@@ -1,0 +1,269 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} CryptoAnalytics {% endblock %}
+
+<!-- ======= START content page  ====== -->
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+
+                    <!-- КАПА -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Капитализация крипторынка</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>$1.84T</h6>
+                                        <span class="text-success small pt-1 fw-bold">-2.16%</span> <span
+                                            class="text-muted small pt-2 ps-1">снижение</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End 1 миниатюра -->
+
+                    <!-- Доминация -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Доминация BTC</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>40.85%</h6>
+                                        <span class="text-success small pt-1 fw-bold" style="color: red;" >+0,21%</span>
+                                        <span class="text-muted small pt-2 ps-1">снижение</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End 2 миниатюра -->
+
+                    <!-- Страх -->
+                    <div class="col-xxl-4 col-xl-12">
+
+                        <div class="card info-card customers-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Индекс страха - жадности</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <img src="../media/event_images/fear_greed.png" style="width: 61%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- End 3 миниатюра -->
+
+                    <!-- центр блоки -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <!--                                    <li><a class="dropdown-item" href="#">Today</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Month</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Year</a></li>-->
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Общий баланс бирж, BTC <span>|  по основным биржам</span></h5>
+                                <div class="" id="btc_balance_exch"></div>
+                                <hr>
+                                <h5 class="card-title">Общий баланс бирж, ETH <span>|  по основным биржам</span></h5>
+                                <div class="" id="eth_balance_exch"></div>
+                                <hr>
+                                <h5 class="card-title">Общий баланс бирж, USDT <span>|  по основным биржам</span></h5>
+                                <div class="" id="usdt_balance_exch"></div>
+                                <hr>
+                                <h5 class="card-title">Общий баланс бирж, USDC <span>|  по основным биржам</span></h5>
+                                <div class="" id="usdc_balance_exch"></div>
+                            </div>
+                        </div>
+                    </div><!-- End 1 блок -->
+
+                    <!-- 2 блок -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <!--                                    <li><a class="dropdown-item" href="#">Today</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Month</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Year</a></li>-->
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Общая нереализованная прибыль <span>| выражение в монетах</span></h5>
+                                <div class="" id="supplyprof"></div>
+                                <hr>
+                                <h5 class="card-title">Общий нереализованный убыток <span>| выражение в монетах</span></h5>
+                                <div class="" id="supplyloss"></div>
+                            </div>
+
+                        </div>
+                    </div><!-- конец 2 блок -->
+
+                    <!-- 2 блок -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <!--                                    <li><a class="dropdown-item" href="#">Today</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Month</a></li>-->
+                                    <!--                                    <li><a class="dropdown-item" href="#">This Year</a></li>-->
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">BTC - чистый поток монет на/с биржи <span>| Приток минус Отток</span></h5>
+                                <div class="chart" id="btc_transfers"></div>
+                            </div>
+
+                        </div>
+                    </div><!-- 3 блок -->
+
+                </div>
+            </div><!-- End центр side columns -->
+
+            <!-- Right side columns -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Объем маржинального долга по фьючерсам <span>| BTC и ETH</span></h5>
+                        <div id="futmarginkredit" style="min-height: 400px;" class="echart"></div>
+                    </div>
+                </div><!-- End 0 бок -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">BTC индекс волатильности <span>| степень колебания цены за сутки</span></h5>
+                        <div id="bvin" style="min-height: 400px;" class="echart"></div>
+                    </div>
+                </div><!-- End 1 боковой -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Общее количество монет в транзакциях  за сутки, BTC и ETH<span> | учитываются только успешные переводы</span></h5>
+                        <div id="transfers_exch" style="min-height: 400px;" class="echart"></div>
+                    </div>
+                </div><!-- End 1 боковой -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Общая капитализация - Монеты<span> | монеты из топа</span></h5>
+                        <div class="" id="captoks"></div>
+                        <hr>
+                        <h5 class="card-title">Общая капитализация - Стейблкоины<span> | главные стейблы</span></h5>
+                        <div class="" id="capstable"></div>
+                    </div>
+                </div><!-- End 2 боковой -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Кол-во адресов с ненулевым балансом<span> | BTC-ETH</span></h5>
+                        <div id="nonzero" style="min-height: 400px;" class="echart"></div>
+                    </div>
+                </div><!-- End 3 боковой -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Объем торгов фьючерсами - BTC</h5>
+                        <div id="vfutur_btc" style="min-height: 400px;" class="echart"></div>
+                    </div>
+                </div><!-- End 3 боковой -->
+
+                <div class="card">
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Величина коррекции в % от последнего ATH<span> | BTC-ETH</span></h5>
+                        <div id="athdown"  style="min-height: 400px;" class="echart"></div>
+
+                    </div>
+                </div><!-- End 4 боковой -->
+
+            </div><!-- End Right side columns -->
+
+        </div>
+    </section>
+
+<!--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+<script src="{% static 'js/plotly-latest.min.js' %}"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>-->
+<script src="{% static 'js/ajax/d3.min.js' %}"></script>
+
+    <script src="../media/btc_balance_exch.js"></script>
+    <script src="../media/eth_balance_exch.js"></script>
+    <script src="../media/usdt_balance_exch.js"></script>
+    <script src="../media/usdc_balance_exch.js"></script>
+    <script src="../media/captoks.js"></script>
+    <script src="../media/capstable.js"></script>
+    <script src="../media/athdown.js"></script>
+    <script src="../media/futmarginkredit.js"></script>
+    <script src="../media/nonzero.js"></script>
+    <script src="../media/transfers_exch.js"></script>
+    <script src="../media/vfutur_btc.js"></script>
+    <script src="../media/bvin.js"></script>
+    <script src="../media/supplyprof.js"></script>
+    <script src="../media/supplyloss.js"></script>
+    <script src="../media/btc_transfers.js"></script>
+
+    <script>Plotly.plot('btc_balance_exch', btc_balance_exch,{});</script>
+    <script>Plotly.plot('eth_balance_exch', eth_balance_exch,{});</script>
+    <script>Plotly.plot('usdt_balance_exch', usdt_balance_exch,{});</script>
+    <script>Plotly.plot('usdc_balance_exch', usdc_balance_exch,{});</script>
+    <script>Plotly.plot('captoks', captoks,{});</script>
+    <script>Plotly.plot('capstable', capstable,{});</script>
+    <script>Plotly.plot('athdown', athdown,{});</script>
+    <script>Plotly.plot('futmarginkredit', futmarginkredit,{});</script>
+    <script>Plotly.plot('nonzero', nonzero,{});</script>
+    <script>Plotly.plot('transfers_exch', transfers_exch,{});</script>
+    <script>Plotly.plot('vfutur_btc', vfutur_btc,{});</script>
+    <script>Plotly.plot('bvin', bvin,{});</script>
+    <script>Plotly.plot('supplyprof', supplyprof,{});</script>
+    <script>Plotly.plot('supplyloss', supplyloss,{});</script>
+    <script>Plotly.plot('btc_transfers', btc_transfers,{});</script>
+    <!-- конец тренировочных скриптов -->
+</main><!-- End #main -->
+<!-- ======= END content page  ====== -->
+{% endblock %}

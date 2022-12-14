@@ -1,0 +1,47 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} V фьючей {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>ECharts</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Futures volume</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="container-xl">
+        <div class="container-fluid">
+            <h3>Объемы футуресов по BTC</h3>
+            <div class="chart" id="plotly_graph_btc"></div>
+
+            <h3>Объемы футуресов по ETH</h3>
+            <div class="chart" id="plotly_graph_eth"></div>
+
+            <h3>Объемы футуресов по XRP</h3>
+            <div class="chart" id="plotly_graph_xrp"></div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <script src="../media/vfutur_btc.js"></script>
+    <script src="../media/vfutur_eth.js"></script>
+    <script src="../media/vfutur_xrp.js"></script>
+
+
+    <script>Plotly.plot('plotly_graph_xrp', graphs_xrp,{});</script>
+    <script>Plotly.plot('plotly_graph_btc', graphs_btc,{});</script>
+    <script>Plotly.plot('plotly_graph_eth', graphs_eth,{});</script>
+
+
+</main><!-- End #main -->
+{% endblock %}

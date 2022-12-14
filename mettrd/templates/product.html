@@ -1,0 +1,45 @@
+{% extends 'base_r.html' %}
+{% load static %}
+
+{% block title %} Открытый интерес {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Открытый интерес</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">open interest</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="container-xl">
+        <div class="container-fluid">
+            <h3>Открытый интерес на футуресах по BTC</h3>
+            <div class="chart" id="plotly_graph_btc"></div>
+
+            <h3>Открытый интерес на футуресах по ETH</h3>
+            <div class="chart" id="plotly_graph_eth"></div>
+
+            <h3>Открытый интерес на футуресах по XRP</h3>
+            <div class="chart" id="plotly_graph_xrp"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <script src="../media/opint_btc.js"></script>
+    <script src="../media/opint_eth.js"></script>
+    <script src="../media/opint_xrp.js"></script>
+
+
+    <script>Plotly.plot('plotly_graph_xrp', opint_xrp,{});</script>
+    <script>Plotly.plot('plotly_graph_btc', opint_btc,{});</script>
+    <script>Plotly.plot('plotly_graph_eth', opint_eth,{});</script>
+
+</main><!-- End #main -->
+{% endblock %}

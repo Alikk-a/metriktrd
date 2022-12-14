@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Постятина {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>посты типа</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Посты</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="container py-5">
+        <div class="row mt-5">
+            {% for post in posts.all %}
+            <br>
+            <img src="{{ post.image.url }}" width=210px>
+            <br>
+            <p>{{ post.get_summary }}</p>
+            <p>{{ post.date }}</p>
+            {% endfor %}
+            <hr>
+            <hr>
+        </div>
+        <div class="col-10 mx-auto col-md-6 my-3">
+            <div class="col-10 mx-auto col-md-6 my-3">
+                <img class="card-img-top" src="{% static 'images/lego.png' %}">
+            </div>
+
+            <h1 class="product_title">Кубики се</h1>
+            <h5 class="text-info font-italic mb-4">21 enot</h5>
+
+            <p class="product_desc">типа описанщина</p>
+        </div>
+    </div>
+    <hr>
+
+</main><!-- End #main -->
+{% endblock %}

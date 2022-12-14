@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="Cache-Control" content="max-age=21000, must-revalidate">
+
+    <title>{% block title %} {% endblock %}</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
+    <link type="text/css" href="{% static 'nadm/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link type="text/css" href="{% static 'nadm/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'nadm/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link type="text/css" href="{% static 'nadm/css/nadm.css' %}" rel="stylesheet">
+
+    <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+<!--    <script src="{% static 'js/plotly-latest.min.js' %}"></script>-->
+    <script src="{% static 'js/ajax/d3.min.js' %}"></script>
+    <script src="{% static 'js/changeview.js' %}"></script>
+
+    <!-- =======================================================
+    * NiceAdmin - v2.2.2 https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    ======================================================== -->
+
+    <!-- переворот ModeBar графиков вертикально   -->
+    <style type="text/css">
+        .js-plotly-plot .plotly .modebar {
+            -moz-transform: rotate(-90deg); /* Для Firefox */
+            -ms-transform: rotate(-90deg); /* Для IE */
+            -webkit-transform: rotate(-90deg); /* Для Safari, Chrome, iOS */
+            -o-transform: rotate(-90deg); /* Для Opera */
+            transform-origin: bottom right;
+           }
+
+    </style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F8LDV98WEC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-F8LDV98WEC');
+    </script>
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'nadm/img/logo.png' %}" alt="">
+            <span class="d-none d-lg-block">CryptoAnalytics</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <!--    <div class="search-bar">-->
+    <!--        <form class="search-form d-flex align-items-center" method="POST" action="#">-->
+    <!--            <input type="text" name="query" placeholder="Search" title="Enter search keyword">-->
+    <!--            <button type="submit" title="Search"><i class="bi bi-search"></i></button>-->
+    <!--        </form>-->
+    <!--    </div>&lt;!&ndash; End Search Bar &ndash;&gt;-->
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <!--                    <li class="nav-item d-block d-lg-none">-->
+            <!--                        <a class="nav-link nav-icon search-bar-toggle " href="#">-->
+            <!--                            <i class="bi bi-search"></i>-->
+            <!--                        </a>-->
+            <!--                    </li>&lt;!&ndash; End Search Icon&ndash;&gt;-->
+
+            <li class="nav-item dropdown">
+                <a data-bs-toggle="modal" data-bs-target="#scrollingModal"
+                   class="nav-link nav-icon nav-item-hover md-trigger" style="color: rgb(28, 8, 211); cursor: pointer;">
+                    <i class="bi bi-gear-fill"></i>
+                </a>
+            </li>
+            <!-- End Notification Icon -->
+
+            <!--                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">-->
+            <!--&lt;!&ndash;                            <li class="dropdown-header">&ndash;&gt;-->
+            <!--&lt;!&ndash;                                You have 4 new notifications&ndash;&gt;-->
+            <!--&lt;!&ndash;                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>&ndash;&gt;-->
+            <!--&lt;!&ndash;                            </li>&ndash;&gt;-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="notification-item">-->
+            <!--                                <i class="bi bi-exclamation-circle text-warning"></i>-->
+            <!--                                <div>-->
+            <!--                                    <h4>Lorem Ipsum</h4>-->
+            <!--                                    <p>Quae dolorem earum veritatis oditseno</p>-->
+            <!--                                    <p>30 min. ago</p>-->
+            <!--                                </div>-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="notification-item">-->
+            <!--                                <i class="bi bi-x-circle text-danger"></i>-->
+            <!--                                <div>-->
+            <!--                                    <h4>Atque rerum nesciunt</h4>-->
+            <!--                                    <p>Quae dolorem earum veritatis oditseno</p>-->
+            <!--                                    <p>1 hr. ago</p>-->
+            <!--                                </div>-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="notification-item">-->
+            <!--                                <i class="bi bi-check-circle text-success"></i>-->
+            <!--                                <div>-->
+            <!--                                    <h4>Sit rerum fuga</h4>-->
+            <!--                                    <p>Quae dolorem earum veritatis oditseno</p>-->
+            <!--                                    <p>2 hrs. ago</p>-->
+            <!--                                </div>-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="notification-item">-->
+            <!--                                <i class="bi bi-info-circle text-primary"></i>-->
+            <!--                                <div>-->
+            <!--                                    <h4>Dicta reprehenderit</h4>-->
+            <!--                                    <p>Quae dolorem earum veritatis oditseno</p>-->
+            <!--                                    <p>4 hrs. ago</p>-->
+            <!--                                </div>-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+            <!--                            <li class="dropdown-footer">-->
+            <!--                                <a href="#">Show all notifications</a>-->
+            <!--                            </li>-->
+
+            <!--                        </ul>&lt;!&ndash; End Notification Dropdown Items &ndash;&gt;-->
+
+            <!--                    </li>&lt;!&ndash; End Notification Nav &ndash;&gt;-->
+
+            <!--                    <li class="nav-item dropdown">-->
+
+            <!--                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">-->
+            <!--                            <i class="bi bi-chat-left-text"></i>-->
+            <!--                            <span class="badge bg-success badge-number">3</span>-->
+            <!--                        </a>&lt;!&ndash; End Messages Icon &ndash;&gt;-->
+
+            <!--                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">-->
+            <!--                            <li class="dropdown-header">-->
+            <!--                                You have 3 new messages-->
+            <!--                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="message-item">-->
+            <!--                                <a href="#">-->
+            <!--                                    <img src="{% static 'nadm/img/messages-1.jpg' %}" alt="" class="rounded-circle">-->
+            <!--                                    <div>-->
+            <!--                                        <h4>Maria Hudson</h4>-->
+            <!--                                        <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>-->
+            <!--                                        <p>4 hrs. ago</p>-->
+            <!--                                    </div>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="message-item">-->
+            <!--                                <a href="#">-->
+            <!--                                    <img src="{% static 'nadm/img/messages-2.jpg' %}" alt="" class="rounded-circle">-->
+            <!--                                    <div>-->
+            <!--                                        <h4>Anna Nelson</h4>-->
+            <!--                                        <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>-->
+            <!--                                        <p>6 hrs. ago</p>-->
+            <!--                                    </div>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="message-item">-->
+            <!--                                <a href="#">-->
+            <!--                                    <img src="{% static 'nadm/img/messages-3.jpg' %}" alt="" class="rounded-circle">-->
+            <!--                                    <div>-->
+            <!--                                        <h4>David Muldon</h4>-->
+            <!--                                        <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>-->
+            <!--                                        <p>8 hrs. ago</p>-->
+            <!--                                    </div>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li class="dropdown-footer">-->
+            <!--                                <a href="#">Show all messages</a>-->
+            <!--                            </li>-->
+
+            <!--                        </ul>&lt;!&ndash; End Messages Dropdown Items &ndash;&gt;-->
+
+            <!--                    </li>&lt;!&ndash; End Messages Nav &ndash;&gt;-->
+
+            <!--                    <li class="nav-item dropdown pe-3">-->
+
+            <!--                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">-->
+            <!--                            <img src="{% static 'nadm/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">-->
+            <!--                            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>-->
+            <!--                        </a>&lt;!&ndash; End Profile Iamge Icon &ndash;&gt;-->
+
+            <!--                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">-->
+            <!--                            <li class="dropdown-header">-->
+            <!--                                <h6>Kevin Anderson</h6>-->
+            <!--                                <span>Web Designer</span>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">-->
+            <!--                                    <i class="bi bi-person"></i>-->
+            <!--                                    <span>My Profile</span>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">-->
+            <!--                                    <i class="bi bi-gear"></i>-->
+            <!--                                    <span>Account Settings</span>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">-->
+            <!--                                    <i class="bi bi-question-circle"></i>-->
+            <!--                                    <span>Need Help?</span>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                            <li>-->
+            <!--                                <hr class="dropdown-divider">-->
+            <!--                            </li>-->
+
+            <!--                            <li>-->
+            <!--                                <a class="dropdown-item d-flex align-items-center" href="#">-->
+            <!--                                    <i class="bi bi-box-arrow-right"></i>-->
+            <!--                                    <span>Sign Out</span>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+
+            <!--                        </ul>&lt;!&ndash; End Profile Dropdown Items &ndash;&gt;-->
+            <!--                    </li>&lt;!&ndash; End Profile Nav &ndash;&gt;-->
+
+        </ul>
+    </nav><!-- ОТКЛЮЧЕНО - кабинет, сообщеняи и т.д.   End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'home' %}">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <!--        <li class="nav-heading">Pages</li>-->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'exchange.html' %}">
+                <i class="ri-camera-lens-fill"></i>
+                <span>Биржи</span>
+            </a>
+        </li><!-- End exchange Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'activity.html' %}">
+                <i class="ri-barricade-fill"></i>
+                <span>Активность рынка</span>
+            </a>
+        </li><!-- End  activity Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'profloss.html' %}">
+                <i class="ri-bar-chart-fill"></i>
+                <span>Прибыли - Убытки</span>
+            </a>
+        </li><!-- End profloss Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'addresses.html' %}">
+                <i class="ri-pantone-fill"></i>
+                <span>Кошельки</span>
+            </a>
+        </li><!-- End addresses Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'bigtrans_sum.html' %}">
+                <i class="ri-restaurant-fill"></i>
+                <span>IN-OUT по Биржам</span>
+            </a>
+        </li><!-- End SUM Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'bigtrans.html' %}">
+                <i class="ri-restaurant-fill"></i>
+                <span>Биг-транзакции</span>
+            </a>
+        </li><!-- End Транзакции Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'bigtransavg_btc' %}">
+                <i class="ri-restaurant-fill"></i>
+                <span>Статистика BTC по дням</span>
+            </a>
+        </li><!-- End Транзакции Page Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'bigtransavg_eth' %}">
+                <i class="ri-restaurant-fill"></i>
+                <span>Статистика ETH по дням</span>
+            </a>
+        </li><!-- End Транзакции Page Nav -->
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'o120522.html' %}">
+                <i class="ri-alert-line"></i>
+                <span>Аномалии 12-05-22</span>
+            </a>
+        </li><!-- End 12 Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'o170522.html' %}">
+                <i class="ri-alert-line"></i>
+                <span>Аномалии с USDT 17-05-22</span>
+            </a>
+        </li><!-- End 17 Page Nav -->
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<!-- ======= START content page  ====== -->
+{% block content %}
+{% endblock %}
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-11">
+                <div id="voton"></div>
+                {% for pag in pages.all %}
+                    <script src="../media/{{ pag.metric.file_name }}.js"></script>
+                    <script>
+                        new GraphModule(
+                            "{{ pag.metric.name }}",
+                            "{{ pag.metric.subname }}",
+                            "{{ pag.metric.file_name }}",
+                            "{{ pag.metric.ID_out }}",
+                            {{ pag.metric.variable }},
+                            "{{ pag.metric.rangestart }}",
+                            Boolean({{ pag.metric.slider }}),
+                            "{{ pag.metric.laycolor }}",
+                            "{{ pag.metric.barmode }}",
+                            "{{ pag.metric.barline }}",
+                            "{{ pag.coment }}",
+                            "#voton"
+                        ).render();
+                    </script>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% block content_bottom %}
+{% endblock %}
+<!-- ======= END content page  ====== -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <strong><span>С миру по байту - Трейдеру инсайт</span></strong>. Ты это..., заходи если что
+    </div>
+    <!-- модальное -------------------->
+    <div class="modal fade" id="scrollingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Управление графиками</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="min-height: 550px;">
+                    <p><img src="../media/event_images/gr_itemM.png"><b> - одинарный клик на наименовании отображаемой
+                        позиции </b>
+                        (названия бирж, монет) – убирает данную позицию из отображения. Повторный клик –
+                        восстанавливает.</p>
+                    <p><img src="../media/event_images/gr_itemB.png"><b> - двойной клик на наименовании позиции </b>–
+                        убирает все остальные, оставляя только нужную.</p>
+                    <hr>
+                    <p><b>Управление временным диапазоном на графике </b>– выделение нужной области мышью прямо на
+                        графике.</p>
+                    <p>Если мышь двигать примерно горизонтально – выделение только по времени.</p>
+                    <p>Если выделять по диагонали – выделяется конкретная область для увеличения по обеим осям.</p>
+                    <p><img src="../media/event_images/gr_ascale.png">
+                        <b> – «autoscale»</b> - полный диапазон дат.</p>
+                    <p><img src="../media/event_images/gr_home.png">
+                        <b> – «reset axes»</b> - восстановление стартового диапазона дат.</p>
+                    <p>Одинарный маркер <img src="../media/event_images/gr_1mark.png"> (установлен по умолчанию) - вывод
+                        значений 1 метрики.</p>
+                    <p>Двойной маркер <img src="../media/event_images/gr_2mark.png"> - вывод всех метрик графика
+                        одновременно.</p>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Scrolling Modal-->
+
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i></a>
+
+
+<!-- Vendor JS Files -->
+<script src="{% static 'nadm/vendor/apexcharts/apexcharts.min.js' %}"></script>
+
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="{% static 'nadm/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'nadm/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'nadm/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'nadm/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'nadm/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'nadm/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'nadm/vendor/php-email-form/validate.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'nadm/js/nadm.js' %}"></script>
+
+</body>
+
+</html>

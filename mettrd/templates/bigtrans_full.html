@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tz %}
+
+{% block title %} Крупные транзации {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Крупные транзации real-time</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Крупные транзации</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Алерт</h5>
+
+            <!-- Table with stripped rows -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">time</th>
+                    <th scope="col">Время</th>
+<!--                    <th scope="col">Время new</th>-->
+                    <th scope="col">Монета</th>
+                    <th scope="col">кол-во</th>
+                    <th scope="col">сумма USD</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Тип движения</th>
+                    <th scope="col">count</th>
+                    <th scope="col">hash</th>
+                    <th scope="col">F тип</th>
+                    <th scope="col">T тип</th>
+                    <th scope="col">блок</th>
+                    <th scope="col">From adr</th>
+                    <th scope="col">To adr</th>
+                    <th scope="col">ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trz in tranzs.all %}
+                <tr>
+                    <td scope="row">{{ trz.time_trz }}</td>
+<!--                    <td>-->
+<!--                        <script>-->
+<!--                           document.write(timeConverter({{ trz.time_trz }}));-->
+<!--                        </script>-->
+<!--                    </td>-->
+                    {% timezone "Europe/Kiev" %}
+
+                        <td>
+                            {% ifchanged %}<b>{{ trz.date_trz|date:"d-m-y" }}</b>{% endifchanged %}
+                            {{ trz.date_trz|date:"H:i:s" }}
+                        </td>
+                    {% endtimezone %}
+                    <td>{{ trz.symbol }}</td>
+                    <td id="amountInt" align="right">{{ trz.amountRound }}</td>
+                    <td id="amountIntusd" align="right">{{ trz.amount_usd|floatformat:"0g" }}</td>
+                    <td align="center">{{ trz.from_owner }}</td>
+                    <td align="center">{{ trz.to_owner }}</td>
+                    <td align="center">{{ trz.transaction_type }}</td>
+                    <td  align="right">{{ trz.transaction_count }}</td>
+                    <td><a href="https://whale-alert.io/transaction/{{ trz.blockchain }}/{{ trz.hash }}" target="_blank">детали</a></td>
+                    <td>{{ trz.from_owner_type }}</td>
+                    <td>{{ trz.to_owner_type }}</td>
+                    <td>{{ trz.blockchain }}</td>
+                    <td><span style="font-size: 10px">{{ trz.from_address }}</span></td>
+                    <td><span style="font-size: 10px">{{ trz.to_address }}</span></td>
+                    <td>{{ trz.id }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+        </div>
+    </div>
+{% endblock %}
+{% block content_bottom %}
+</main><!-- End #main -->
+{% endblock %}

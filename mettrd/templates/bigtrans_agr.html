@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Суммарненько {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Суммарненько</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Суммарненько</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-11">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title">BTC - крупные (от 500k $) транзакции на/с бирж по ДНЯМ</h5>
+                        <div class="chart" id="alertday"></div>
+                        <script src="../media/alertday.js"></script>
+                        <script>Plotly.plot('alertday', alertday,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">BTC - крупные (от 500k $) транзакции на/с бирж по ЧАСАМ (время UTC)</h5>
+                        <div class="chart" id="alerthour"></div>
+                        <script src="../media/alerthour.js"></script>
+                        <script>Plotly.plot('alerthour', alerthour,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">ETH - крупные (от 500k $) транзакции на/с бирж по ДНЯМ</h5>
+                        <div class="chart" id="alertdayeth"></div>
+                        <script src="../media/alertdayeth.js"></script>
+                        <script>Plotly.plot('alertdayeth', alertdayeth,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">ETH - крупные (от 500k $) транзакции на/с бирж по ЧАСАМ (время UTC)</h5>
+                        <div class="chart" id="alerthoureth"></div>
+                        <script src="../media/alerthoureth.js"></script>
+                        <script>Plotly.plot('alerthoureth', alerthoureth,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">USDT - крупные (от 500k $) транзакции на/с бирж по ДНЯМ</h5>
+                        <div class="chart" id="alertdayusd"></div>
+                        <script src="../media/alertdayusd.js"></script>
+                        <script>Plotly.plot('alertdayusd', alertdayusd,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">USDT - крупные (от 500k $) транзакции на/с бирж по ЧАСАМ (время UTC)</h5>
+                        <div class="chart" id="alerthourusd"></div>
+                        <script src="../media/alerthourusd.js"></script>
+                        <script>Plotly.plot('alerthourusd', alerthourusd,{});</script>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">XRP - крупные (от 500k $) транзакции на/с бирж по ДНЯМ</h5>
+                        <div class="chart" id="alertdayxrp"></div>
+                        <script src="../media/alertdayxrp.js"></script>
+                        <script>Plotly.plot('alertdayxrp', alertdayxrp,{});</script>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Суммарненько</h5>
+
+                        <!-- Table with stripped rows -->
+                        <table id="filter-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width:210px" scope="col">Время</th>
+                                <th style="width:30px" scope="col">Монета</th>
+                                <th scope="col"><div align="center">кол-во</div></th>
+                                <th scope="col"><div align="center">сумма USD</div></th>
+                                <th style="width:85px" scope="col"><div align="center">From</div></th>
+                                <th style="width:85px" scope="col"><div align="center">To</div></th>
+                                <th scope="col">блокчейн</th>
+                                <th scope="col">ID</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for trz in tranzs.all %}
+                            <tr  class='table-data'>
+                                <td>
+                                    {{ trz.intval }}
+<!--                                    <script>-->
+<!--                                       document.write(timeConverter({{ trz.time_trz }}));-->
+<!--                                    </script>-->
+                                </td>
+                                <td  align="center">{{ trz.symbol }}</td>
+                                <td id="amountInt" align="right">{{ trz.amount__sum }}</td>
+                                <td id="amountIntusd" align="right">{{ trz.amount_usd__sum }}</td>
+                                <td align="center">{{ trz.from_owner_type }}</td>
+                                <td align="center">{{ trz.to_owner_type }}</td>
+                                <td>{{ trz.blockchain }}</td>
+                                <td>{{ trz.id }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% block content_bottom %}
+
+</main><!-- End #main -->
+{% endblock %}

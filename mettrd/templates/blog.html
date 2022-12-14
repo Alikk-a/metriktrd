@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Постятина {% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>постятина и иже с ней - тренировочный полигон, нах, однако</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Посты</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="container-xl">
+
+        <div class="container-fluid">
+            <h3>Капа стейблятины</h3>
+            <div class="chart" id="plotly_graph_st"></div>
+        </div>
+
+        <div class="container-fluid">
+            <h3>Капа полезных монетов</h3>
+            <div class="chart" id="plotly_graph_capt"></div>
+        </div>
+
+        <p id="min2">из файла
+        <hr>
+        </p>
+
+        <p id="min">из переменной
+        <hr>
+        </p>
+
+        <p id="min3">**********</p>
+
+        <h4>{{ bi1 }}</h4>
+        <h4>{{ values }}</h4>
+
+    </div>
+
+    <div class="container py-5">
+        <div class="row mt-5">
+            <div class="col-10 mx-auto col-md-6 my-3">
+                {% for post in posts.all %}
+                <br>
+                <img src="{{ post.image.url }}" width=210px>
+                <br>
+                <p>{{ post.get_summary }}</p>
+                <p>{{ post.date }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-10 mx-auto col-md-6 my-3">
+            <img class="card-img-top" src="{% static 'images/lego.png' %}">
+            <h1 class="product_title">Кубики се</h1>
+            <h5 class="text-info font-italic mb-4">21 дохлый enot</h5>
+
+            <p class="product_desc">типа описанщина</p>
+        </div>
+    </div>
+    <hr>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="../media/prob.js"></script>
+    <script>
+        Plotly.newPlot('plotly_graph_capt', prob,{});
+        document.getElementById("min2").innerHTML = prob;
+
+        console.log(prob);
+
+    </script>
+
+    <script>
+        var min = 'Ух ты ж, мух-блях...';
+
+        out_m = "{{ out }}";
+
+        Plotly.newPlot('plotly_graph_st', out_m,{});
+        console.log(obj);
+        document.getElementById("min3").innerHTML = out_m;
+        document.getElementById("min").innerHTML = min;
+
+    </script>
+
+</main><!-- End #main -->
+{% endblock %}
