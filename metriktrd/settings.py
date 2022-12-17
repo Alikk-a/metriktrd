@@ -80,9 +80,9 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'metriktrd',  #agroup_metrik
-        'USER': 'postgres',  #  agroup_adm
-        'PASSWORD': 'admin958',  # Cn8AS#MpEDou
+        'NAME': 'metriktrd',
+        'USER': 'postgres',
+        'PASSWORD': 'admin958',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
